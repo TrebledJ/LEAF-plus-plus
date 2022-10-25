@@ -1,5 +1,5 @@
 # LEAF-plus-plus
-Lightweight C++ wrapper for the LEAF embedded audio library.
+Lightweight C++ wrapper for the [LEAF embedded audio framework][leaf].
 
 ## Motivation
 
@@ -17,11 +17,11 @@ The point is that we can pass any object with `.tick()` (which returns a `float`
 
 ## Usage
 
-Add both `leaf.hpp` and `leaf.cpp` to your project. You can use most functions in the usual way.
+Add both `leaf.hpp` and `leaf.cpp` to your project, along with [LEAF's][leaf] `.h` and `.c` files. You can use most functions in the usual way.
 
 One key difference is that we internally define a `LEAF main` object which is used by default.
 
-Here's the example from the LEAF repo written with the C++ wrapper:
+Here's the [example](https://github.com/spiricom/LEAF#example-of-using-leaf) from the LEAF repo written with the C++ wrapper:
 
 ```cpp
 // Create your LEAF objects.
@@ -56,3 +56,5 @@ void audioFrame()
   }
 }
 ```
+
+[leaf]: https://github.com/spiricom/LEAF
