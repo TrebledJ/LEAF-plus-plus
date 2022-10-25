@@ -21,7 +21,7 @@ Add both `leaf.hpp` and `leaf.cpp` to your project, along with [LEAF's][leaf] `.
 
 Most functions can be used in the typical way. Their parameters haven't changed.
 
-One key difference is that we internally define a `LEAF main` object which is used by default.
+One key difference is that we internally define a `LEAF main` object which is used as a default for `LEAF*` params where possible.
 
 Here's the [example](https://github.com/spiricom/LEAF#example-of-using-leaf) from the LEAF repo written with the C++ wrapper:
 
