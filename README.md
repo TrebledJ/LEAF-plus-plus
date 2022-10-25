@@ -3,7 +3,7 @@ Lightweight C++ wrapper for the [LEAF embedded audio framework][leaf].
 
 ## Motivation
 
-With C++ in our armament, we may prefer to call the LEAF API in an object-oriented style. Moreover, an OO interface lends itself to generic programming better. For example:
+With C++ in our armament, we may prefer to call the LEAF API in an object-oriented style. Moreover, an OO interface lends itself well to generic programming. For example:
 
 ```cpp
 template <typename T>
