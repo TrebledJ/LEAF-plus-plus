@@ -17,7 +17,9 @@ The point is that we can pass any object with `.tick()` (which returns a `float`
 
 ## Usage
 
-Add both `leaf.hpp` and `leaf.cpp` to your project, along with [LEAF's][leaf] `.h` and `.c` files. You can use most functions in the usual way.
+Add both `leaf.hpp` and `leaf.cpp` to your project, along with [LEAF's][leaf] `.h` and `.c` files. Don't copy their .hpp and .cpp's into your project.
+
+Most functions can be used in the typical way. Their parameters haven't changed.
 
 One key difference is that we internally define a `LEAF main` object which is used by default.
 
