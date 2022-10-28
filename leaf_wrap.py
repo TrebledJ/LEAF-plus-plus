@@ -7,9 +7,8 @@ Creates a lightweight C++ wrapper for LEAF by analysing the header files.
 import os
 import re
 
-
 # The folder where the leaf headers are stored.
-folder = 'leaf'
+folder = '/Users/jjjlaw/Documents/GitHub/stm32-midi-keyboard/Core/Inc/leaf'
 
 # File to output C++ symbols.
 output_file = 'leaf.hpp'
@@ -42,13 +41,19 @@ namespace leaf
 {
     extern LEAF main;
 
-    void init(float sampleRate, char* memory, size_t memorySize, float (*random)(void))
+    inline void init(LEAF& leaf, float sampleRate, char* memory, size_t memorySize, float (*random)(void))
     {
-        LEAF_init(&main, sampleRate, memory, memorySize, random);
+        LEAF_init(&leaf, sampleRate, memory, memorySize, random);
     }
 
-    void setSampleRate(float sampleRate, LEAF& leaf = main) { LEAF_setSampleRate(&leaf, sampleRate); }
-    float getSampleRate(const LEAF& leaf = main) { return leaf.sampleRate; }
+    inline void init(float sampleRate, char* memory, size_t memorySize, float (*random)(void))
+    {
+        init(main, sampleRate, memory, memorySize, random);
+    }
+
+    inline void setSampleRate(LEAF& leaf, float sampleRate) { LEAF_setSampleRate(&leaf, sampleRate); }
+    inline void setSampleRate(float sampleRate) { setSampleRate(main, sampleRate); }
+    inline float getSampleRate(const LEAF& leaf = main) { return leaf.sampleRate; }
 
 """
 
@@ -66,10 +71,8 @@ def indent_lines(lines, indent=4):
     # return sp + ('\n' + sp).join(lines)
     return ['\n' + sp + line for line in lines]
 
-
 def join_lines(lines, indent=4):
     return '\n'.join(indent_lines(lines, indent))
-
 
 def make_id(typ, var, const=False, ref=False, ptr=False, init=None):
     const_str = ['', 'const '][const]
@@ -132,7 +135,6 @@ def process_func_decl(decl):
 
     return is_class_based, typ, cname, og_fname, fname, args
 
-
 def get_arg(arg):
     try:
         arg, init = arg.split('=')
@@ -168,11 +170,6 @@ def get_arg(arg):
         'ptr': ptr,
         'init': init,
     }
-
-
-def is_leaf_file(filename):
-    return filename.startswith('leaf-') and filename.endswith('.h')
-
 
 class Writer:
     """
@@ -314,6 +311,9 @@ def make_cpp_wrapper(out, file):
                 body = 'return ' + body # Add `return` for non-void functions.
 
             func = make_function(ret=typ, fname=fname, args=args, body=body)
+            if not is_class_based:
+                func = 'inline ' + func
+
             out.write(func)
 
             prev_cname = cname
@@ -321,6 +321,9 @@ def make_cpp_wrapper(out, file):
     out.end_class()
     out.end_namespace()
 
+
+def is_leaf_file(filename):
+    return filename.startswith('leaf-') and filename.endswith('.h')
 
 if __name__ == '__main__':
     wrt = Writer()

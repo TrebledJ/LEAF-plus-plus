@@ -7,19 +7,19 @@ namespace leaf
 {
     extern LEAF main;
 
-    void init(LEAF& leaf, float sampleRate, char* memory, size_t memorySize, float (*random)(void))
+    inline void init(LEAF& leaf, float sampleRate, char* memory, size_t memorySize, float (*random)(void))
     {
         LEAF_init(&leaf, sampleRate, memory, memorySize, random);
     }
 
-    void init(float sampleRate, char* memory, size_t memorySize, float (*random)(void))
+    inline void init(float sampleRate, char* memory, size_t memorySize, float (*random)(void))
     {
         init(main, sampleRate, memory, memorySize, random);
     }
 
-    void setSampleRate(LEAF& leaf, float sampleRate) { LEAF_setSampleRate(&leaf, sampleRate); }
-    void setSampleRate(float sampleRate) { setSampleRate(main, sampleRate); }
-    float getSampleRate(const LEAF& leaf = main) { return leaf.sampleRate; }
+    inline void setSampleRate(LEAF& leaf, float sampleRate) { LEAF_setSampleRate(&leaf, sampleRate); }
+    inline void setSampleRate(float sampleRate) { setSampleRate(main, sampleRate); }
+    inline float getSampleRate(const LEAF& leaf = main) { return leaf.sampleRate; }
 
     namespace distortion
     {
@@ -948,30 +948,30 @@ namespace leaf
 
         namespace mpool
         {
-            void create(char* memory, size_t size, _tMempool* pool) { mpool_create(memory, size, pool); }
+            inline void create(char* memory, size_t size, _tMempool* pool) { mpool_create(memory, size, pool); }
 
-            char* alloc(size_t size, _tMempool* pool) { return mpool_alloc(size, pool); }
-            char* calloc(size_t asize, _tMempool* pool) { return mpool_calloc(asize, pool); }
+            inline char* alloc(size_t size, _tMempool* pool) { return mpool_alloc(size, pool); }
+            inline char* calloc(size_t asize, _tMempool* pool) { return mpool_calloc(asize, pool); }
 
-            void free(char* ptr, _tMempool* pool) { mpool_free(ptr, pool); }
+            inline void free(char* ptr, _tMempool* pool) { mpool_free(ptr, pool); }
 
-            size_t get_size(_tMempool* pool) { return mpool_get_size(pool); }
-            size_t get_used(_tMempool* pool) { return mpool_get_used(pool); }
+            inline size_t get_size(_tMempool* pool) { return mpool_get_size(pool); }
+            inline size_t get_used(_tMempool* pool) { return mpool_get_used(pool); }
         };
 
         namespace leaf
         {
-            void pool_init(LEAF& leaf, char* memory, size_t size) { leaf_pool_init(&leaf, memory, size); }
+            inline void pool_init(LEAF& leaf, char* memory, size_t size) { leaf_pool_init(&leaf, memory, size); }
 
-            char* alloc(LEAF& leaf, size_t size) { return leaf_alloc(&leaf, size); }
-            char* calloc(LEAF& leaf, size_t size) { return leaf_calloc(&leaf, size); }
+            inline char* alloc(LEAF& leaf, size_t size) { return leaf_alloc(&leaf, size); }
+            inline char* calloc(LEAF& leaf, size_t size) { return leaf_calloc(&leaf, size); }
 
-            void free(LEAF& leaf, char* ptr) { leaf_free(&leaf, ptr); }
+            inline void free(LEAF& leaf, char* ptr) { leaf_free(&leaf, ptr); }
 
-            size_t pool_get_size(LEAF& leaf = main) { return leaf_pool_get_size(&leaf); }
-            size_t pool_get_used(LEAF& leaf = main) { return leaf_pool_get_used(&leaf); }
+            inline size_t pool_get_size(LEAF& leaf = main) { return leaf_pool_get_size(&leaf); }
+            inline size_t pool_get_used(LEAF& leaf = main) { return leaf_pool_get_used(&leaf); }
 
-            char* pool_get_pool(LEAF& leaf = main) { return leaf_pool_get_pool(&leaf); }
+            inline char* pool_get_pool(LEAF& leaf = main) { return leaf_pool_get_pool(&leaf); }
         };
 
     }
@@ -1377,7 +1377,7 @@ namespace leaf
             float tickFrozen(float synth, float voice) { return tTalkbox_tickFrozen(&obj, synth, voice); }
             void update() { tTalkbox_update(&obj); }
             void suspend() { tTalkbox_suspend(&obj); }
-            void lpcDurbin(float* r, int p, float* k, float* g) { tTalkbox_lpcDurbin(r, p, k, g); }
+            inline void lpcDurbin(float* r, int p, float* k, float* g) { tTalkbox_lpcDurbin(r, p, k, g); }
             void setQuality(float quality) { tTalkbox_setQuality(&obj, quality); }
             void setWarpFactor(float warp) { tTalkbox_setWarpFactor(&obj, warp); }
             void setWarpOn(float warpOn) { tTalkbox_setWarpOn(&obj, warpOn); }
@@ -1397,7 +1397,7 @@ namespace leaf
             float tickFrozen(float synth, float voice) { return tTalkboxFloat_tickFrozen(&obj, synth, voice); }
             void update() { tTalkboxFloat_update(&obj); }
             void suspend() { tTalkboxFloat_suspend(&obj); }
-            void lpcDurbin(float* r, int p, float* k, float* g) { tTalkboxFloat_lpcDurbin(r, p, k, g); }
+            inline void lpcDurbin(float* r, int p, float* k, float* g) { tTalkboxFloat_lpcDurbin(r, p, k, g); }
             void setQuality(float quality) { tTalkboxFloat_setQuality(&obj, quality); }
             void setWarpFactor(float warp) { tTalkboxFloat_setWarpFactor(&obj, warp); }
             void setWarpOn(int warpOn) { tTalkboxFloat_setWarpOn(&obj, warpOn); }
